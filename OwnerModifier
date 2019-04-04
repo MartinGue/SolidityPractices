@@ -25,12 +25,12 @@ contract FietsContract{
         owner = msg.sender;
     }
 
-    function addDog(string memory _merk, uint _maat) public alleenNieuweEigenaars{
+    function addFiets(string memory _merk, uint _maat) public alleenNieuweEigenaars{
         Fiets memory huidigeFiets =  Fiets(_merk, _maat);
        eigenaarVanFiets[msg.sender] = huidigeFiets;
     }
 
-    function getDog() public view returns (string memory) {
+    function getFiets() public view returns (string memory) {
         address eigenaar = msg.sender;
         return eigenaarVanFiets[eigenaar].merk;
     }
