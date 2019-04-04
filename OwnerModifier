@@ -1,22 +1,22 @@
 pragma solidity 0.5.7;
 
-contract DogContract{
+contract FietsContract{
 
-    struct Dog {
-        string name;
-        uint age;
+    struct Fiets {
+        string merk;
+        uint maat;
     }
 
     address owner;
 
-    mapping(address => Dog) ownerToDog;
+    mapping(address => Fiets) eigenaarVanFiets;
 
-    modifier onlyNewOwners(){
-        require(ownerToDog[msg.sender].age == 0);
+    modifier alleenNieuweEigenaars(){
+        require(eigenaarVanFiets[msg.sender].maat == 0);
         _;
     }
 
-    modifier onlyOwner(){
+    modifier alleenEigenaar(){
         require(msg.sender == owner);
         _;
     }
@@ -25,18 +25,18 @@ contract DogContract{
         owner = msg.sender;
     }
 
-    function addDog(string memory _name, uint _age) public onlyNewOwners{
-        Dog memory currentDog =  Dog(_name, _age);
-        ownerToDog[msg.sender] = currentDog;
+    function addDog(string memory _merk, uint _maat) public alleenNieuweEigenaars{
+        Fiets memory huidigeFiets =  Fiets(_merk, _maat);
+       eigenaarVanFiets[msg.sender] = huidigeFiets;
     }
 
     function getDog() public view returns (string memory) {
         address eigenaar = msg.sender;
-        return ownerToDog[eigenaar].name;
+        return eigenaarVanFiets[eigenaar].merk;
     }
 
-    function deleteDog(address _address) public onlyOwner {
-        delete ownerToDog[_address];
+    function wisFiets(address _address) public alleenEigenaar {
+        delete eigenaarVanFiets[_address];
     }
 
 }
